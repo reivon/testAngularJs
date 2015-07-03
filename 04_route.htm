@@ -1,0 +1,154 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body ng-app="myapp">
+
+	<div ng-view></div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+	<script src="https://code.angularjs.org/1.3.16/angular-route.min.js"></script>
+
+	<script>
+
+		var app = angular.module('myapp', ['ngRoute']);
+		app.config(function($routeProvider) {
+			$routeProvider
+				.when('/', {templateUrl: '04_partials/home.html', controller : 'PostController'})
+				.when('/comments/:id', {templateUrl:'04_partials/comments.html', controller: 'CommentsController'})
+				.otherwise({redirectTo : '/'});
+		});
+
+		app.controller('CommentsController', ['$scope', function ($scope) {
+			// Solution dans le 05. Ici on est bloqué, on ne peut pas récupérer les infos des commentaires
+		}]);
+
+		app.controller('PostController', ['$scope', function ($scope) {
+			$scope.posts = [
+			  {
+			    "id": 0,
+			    "name": "Sentia",
+			    "content": "Id fugiat incididunt reprehenderit amet aute ea amet irure quis aliqua. Cillum Lorem non aliquip et. Qui qui consequat deserunt in sit proident sit veniam deserunt. Dolore est occaecat consequat irure veniam eu ea duis consectetur. Est est nostrud aliqua ipsum duis esse mollit ad elit ut eiusmod. Amet tempor adipisicing adipisicing aliquip commodo eu officia reprehenderit exercitation et commodo aute ullamco.",
+			    "comments": [
+			      {
+			        "username": "Irwin",
+			        "city": "Marienthal",
+			        "email": "irwin@marienthal.com",
+			        "content": "officia"
+			      },
+			      {
+			        "username": "Britney",
+			        "city": "Sparkill",
+			        "email": "britney@sparkill.com",
+			        "content": "adipisicing"
+			      },
+			      {
+			        "username": "Kline",
+			        "city": "Reinerton",
+			        "email": "kline@reinerton.com",
+			        "content": "qui"
+			      }
+			    ]
+			  },
+			  {
+			    "id": 1,
+			    "name": "Ecrater",
+			    "content": "Non qui non nisi tempor aliquip quis ullamco non non. Ipsum do ut Lorem tempor dolore non commodo occaecat do consequat. Irure est culpa esse nostrud. Do irure deserunt tempor ex elit duis laboris in eu ullamco eiusmod nisi. Ad labore do quis nisi cupidatat magna eiusmod. Consectetur reprehenderit labore amet fugiat non officia.",
+			    "comments": [
+			      {
+			        "username": "Verna",
+			        "city": "Skyland",
+			        "email": "verna@skyland.com",
+			        "content": "reprehenderit"
+			      }
+			    ]
+			  },
+			  {
+			    "id": 2,
+			    "name": "Toyletry",
+			    "content": "Pariatur cillum laborum Lorem reprehenderit proident deserunt quis labore in velit consectetur. Labore occaecat est incididunt do sit enim ad laboris deserunt. Fugiat commodo sit velit ea id aliqua cillum non aliqua. Qui nostrud qui laborum quis culpa reprehenderit ex. Aute adipisicing eu laboris tempor deserunt sit tempor. Deserunt pariatur dolore magna consequat ut ex fugiat excepteur incididunt magna qui tempor enim.",
+			    "comments": [
+			      {
+			        "username": "Clarice",
+			        "city": "Lutsen",
+			        "email": "clarice@lutsen.com",
+			        "content": "culpa"
+			      },
+			      {
+			        "username": "Emilia",
+			        "city": "Mooresburg",
+			        "email": "emilia@mooresburg.com",
+			        "content": "excepteur"
+			      }
+			    ]
+			  },
+			  {
+			    "id": 3,
+			    "name": "Orbean",
+			    "content": "In est commodo enim excepteur fugiat laboris sit. Occaecat incididunt eiusmod ea duis eiusmod irure ex officia elit excepteur. Deserunt sunt enim esse dolore sint et nostrud qui proident qui labore elit ad qui. Culpa eu amet eiusmod est sit sint ut Lorem elit aliquip. In ipsum quis magna aute consequat quis nulla dolor do proident aute eiusmod. Tempor excepteur ex minim pariatur enim dolore non do officia voluptate mollit non.",
+			    "comments": [
+			      {
+			        "username": "Whitney",
+			        "city": "Emison",
+			        "email": "whitney@emison.com",
+			        "content": "exercitation"
+			      }
+			    ]
+			  },
+			  {
+			    "id": 4,
+			    "name": "Pulze",
+			    "content": "Veniam labore incididunt reprehenderit exercitation id nostrud aute ullamco pariatur nostrud esse. Qui deserunt duis cupidatat consectetur dolore velit id consequat. Esse Lorem anim adipisicing aute qui esse dolore et. Culpa laboris consectetur aliqua ipsum officia laborum nostrud excepteur aute aute nisi pariatur. Proident proident nostrud pariatur laborum do magna aute. In quis ullamco eu do occaecat.",
+			    "comments": [
+			      {
+			        "username": "Sonja",
+			        "city": "Muse",
+			        "email": "sonja@muse.com",
+			        "content": "nulla"
+			      },
+			      {
+			        "username": "Flora",
+			        "city": "Kula",
+			        "email": "flora@kula.com",
+			        "content": "ut"
+			      },
+			      {
+			        "username": "Baldwin",
+			        "city": "Edgar",
+			        "email": "baldwin@edgar.com",
+			        "content": "nisi"
+			      }
+			    ]
+			  },
+			  {
+			    "id": 5,
+			    "name": "Zaj",
+			    "content": "Irure labore ipsum deserunt magna duis. Fugiat cupidatat non dolor eiusmod anim fugiat ad nostrud. Ullamco incididunt nulla ad officia sunt est nulla deserunt. Velit magna dolore sint sint. Laborum pariatur amet proident magna laborum amet magna officia. Dolore irure Lorem ex laboris Lorem deserunt pariatur consequat.",
+			    "comments": [
+			      {
+			        "username": "Figueroa",
+			        "city": "Grayhawk",
+			        "email": "figueroa@grayhawk.com",
+			        "content": "quis"
+			      },
+			      {
+			        "username": "Deloris",
+			        "city": "Hailesboro",
+			        "email": "deloris@hailesboro.com",
+			        "content": "officia"
+			      },
+			      {
+			        "username": "Leigh",
+			        "city": "Stockwell",
+			        "email": "leigh@stockwell.com",
+			        "content": "ad"
+			      }
+			    ]
+			  }
+			];
+		}]);
+	
+	</script>
+
+</body>
+</html>

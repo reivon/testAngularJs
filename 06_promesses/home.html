@@ -1,0 +1,13 @@
+
+<div ng-hide="loading">
+	<div ng-repeat="post in posts">
+
+		<h1>#{{post.id}} - {{post.name}}</h1>
+
+		<p>{{post.content}}</p>
+
+		<p><a href="#/comments/{{post.id}}">Voir les {{post.comments.length}} commentaire(s)</a></p>
+
+		<hr>
+	</div>
+</div>

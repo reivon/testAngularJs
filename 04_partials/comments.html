@@ -1,0 +1,16 @@
+
+
+	<!-- répétition et filtre -->
+	Filtre : <input type="text" ng-model="query"/><br />
+	Organiser par : <select ng-model="order">
+		<option value="name">Nom</option>
+		<option value="content">Contenu</option>
+	</select>
+
+	<ul>
+		<li ng-repeat="comment in comments | filter:query | orderBy:order">
+			<strong>{{comment.username | uppercase}}</strong><br/>
+			{{comment.content}}
+		</li>
+	</ul>
+	

@@ -1,0 +1,94 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body ng-app="myapp">
+
+	
+
+
+
+	<!-- répétition et filtre -->
+	Filtre : <input type="text" ng-model="query"/><br />
+	Organiser par : <select ng-model="order">
+		<option value="name">Nom</option>
+		<option value="content">Contenu</option>
+	</select>
+	<div ng-controller="CommentsController">
+		<ul>
+			<li ng-repeat="comment in comments | filter:query | orderBy:order">
+				<strong>{{comment.username | uppercase}}</strong><br/>
+				{{comment.content}}
+			</li>
+		</ul>
+	</div>
+
+	<!-- {{users | filter:'n'}} -->
+
+	<br />
+
+	<!-- Calculette --> 
+	<input type="text" ng-model="nb1"/> + <input type="text" ng-model="nb2"/> = {{nb1*1 + nb2*1}}
+
+
+
+	<!-- Inclusion d'angular -->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+	<script src="https://code.angularjs.org/1.3.16/angular-animate.min.js"></script>
+
+
+	<script>
+
+		var app = angular.module('myapp', ['ngAnimate']);
+		app.controller('CommentsController', ['$scope', function ($scope) {
+			$scope.comments = [
+				{
+					"username": "Martina",
+					"city": "Clara",
+					"email": "martina@clara.com",
+					"content": "velit"
+				},
+				{
+					"username": "Fields",
+					"city": "Dorneyville",
+					"email": "fields@dorneyville.com",
+					"content": "ea"
+				},
+				{
+					"username": "Lavonne",
+					"city": "Calverton",
+					"email": "lavonne@calverton.com",
+					"content": "sint"
+				},
+				{
+					"username": "Noel",
+					"city": "Roderfield",
+					"email": "noel@roderfield.com",
+					"content": "proident"
+				},
+				{
+					"username": "Whitaker",
+					"city": "Limestone",
+					"email": "whitaker@limestone.com",
+					"content": "nulla"
+				},
+				{
+					"username": "Sandra",
+					"city": "Carlos",
+					"email": "sandra@carlos.com",
+					"content": "quis"
+				},
+				{
+					"username": "Rosalyn",
+					"city": "Barronett",
+					"email": "rosalyn@barronett.com",
+					"content": "laboris"
+				}
+			];
+		}]);
+	
+	</script>
+
+</body>
+</html>

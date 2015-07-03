@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body ng-app>
+
+
+
+
+
+	<!-- répétition et filtre -->
+	Filtre : <input type="text" ng-model="query"/><br />
+	Organiser par : <select ng-model="order">
+		<option value="name">Nom</option>
+		<option value="content">Contenu</option>
+	</select>
+	<div ng-init="users=[{name:'Marc', content:'salut les gens'}, {name:'Jean',content:'je suis content'}, {name:'John',content:'first'}]">
+		<ul>
+			<li ng-repeat="user in users | filter:query | orderBy:order">
+				<strong>{{user.name | uppercase}}</strong><br/>
+				{{user.content}}
+			</li>
+		</ul>
+	</div>
+
+	<!-- {{users | filter:'n'}} -->
+
+	<br />
+
+	<!-- Calculette --> 
+	<input type="text" ng-model="nb1"/> + <input type="text" ng-model="nb2"/> = {{nb1*1 + nb2*1}}
+
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+
+</body>
+</html>

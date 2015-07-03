@@ -1,0 +1,175 @@
+
+<html>
+<head>
+
+	<!-- XHTML  -->
+	<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> -->
+	<!-- HTML5 -->
+	<meta charset="UTF-8">
+	
+</head>
+<body ng-app="myapp">
+
+	<div ng-view></div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+	<script src="https://code.angularjs.org/1.3.16/angular-route.min.js"></script>
+
+	<script>
+
+		var apikey = "9jfgbguct4c4wx8bqtn2r7hj6q8526qd";
+		// API url
+		var classesUrl = "https://eu.api.battle.net/wow/data/character/classes?locale=fr_FR&apikey=";
+		var guildMembersUrl = "https://eu.api.battle.net/wow/guild/Elune/Les%20Ømbres?fields=members&locale=fr_FR&apikey=";
+
+		// Récupérer les images : http://us.battle.net/wow/en/forum/topic/2743811263
+
+
+		// *******************************************************
+		// APP + ROUTES
+		var app = angular.module('myapp', ['ngRoute']);
+		app.config(function($routeProvider) {
+			$routeProvider
+				.when('/', {templateUrl: 'home.html', controller : 'GuildController'})
+				.otherwise({redirectTo : '/'});
+		});
+
+		// *******************************************************
+		// FACTORY
+		app.factory('MiscFactory', function($http, $q, $timeout) {
+			var factory = {
+				classes : false,
+				getClasses : function() {
+					var deferred = $q.defer();
+
+					if (factory.classes !== false) {
+						deferred.resolve(factory.classes);
+					}
+					else {
+						$http.get(classesUrl + apikey)
+							.success(function(data, status) {
+								factory.classes = data;
+								deferred.resolve(data);
+							})
+							.error(function(data, status) {
+								deferred.reject('Impossible de récupérer la définition des classes : ' + data.reason);
+							});
+					}
+
+					return deferred.promise;
+				},
+				getClass : function(id) {
+					var deferred = $q.defer();
+					var theClass = {};
+					var classes = factory.getClasses().then(function(classes) {
+						angular.forEach(factory.classes.classes, function(value, key) {
+							if (value.id == id) {
+								theClass = value;
+							}
+						});
+						deferred.resolve(theClass);
+					}, function(msg) {
+						deferred.reject(msg);
+					});
+
+					return deferred.promise;
+				}
+			};
+			return factory;
+		});
+
+		app.factory('MemberFactory', function($http, $q, $timeout) {
+			var factory = {
+				members : false,
+				getAll : function() {
+					var deferred = $q.defer();
+
+					if (factory.members !== false) {
+						deferred.resolve(factory.members);
+					}
+					else {
+						$http.get(guildMembersUrl + apikey)
+							.success(function(data, status) {
+								factory.members = data;
+								deferred.resolve(data);
+							})
+							.error(function(data, status) {
+								deferred.reject('Impossible de récupérer les membres de la guilde : ' + data.reason);
+							});
+					}
+
+					return deferred.promise;
+				}
+			};
+			return factory;
+		});
+
+		// *******************************************************
+		// CONTROLLER
+		app.controller('GuildController', ['$scope', 'MemberFactory', 'MiscFactory', function ($scope, MemberFactory, MiscFactory) {
+			$scope.members = {};
+
+
+			MemberFactory.getAll().then(function(members) {
+				$scope.members = members;
+			}, function(msg) {
+				alert(msg);
+			});
+
+			$scope.classes = {};
+
+			MiscFactory.getClass(1).then(function(classes) {
+				$scope.classes = classes;
+			}, function(msg) {
+				alert(msg);
+			});
+
+			$scope.predicate = 'rank';
+	    	$scope.reverse = false;
+
+	    	$scope.order = function(predicate) {
+		        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+		        $scope.predicate = predicate;
+	    	};
+
+/*	    	$scope.getClassName = function(classId) {
+				MiscFactory.getClass().then(function(class) {
+					return class.name;
+				});
+	    	};*/
+		}]);
+
+		// *******************************************************
+		// FILTER
+		// Filtre strict pour un number mis dans un select 
+		app.filter('filterRankSelect', function(){
+			return function(datas, number) {
+
+				if (number == null || number == "") {
+					return datas;
+				}
+				var n = parseInt(number, 10);
+
+				return datas.filter(function(item) {
+					return item.rank === n;
+				});
+			}
+		});
+
+		app.filter('transformClass', function(MiscFactory){
+			return function(id) {
+				return "toto";
+/*				var n = parseInt(id, 10);
+				MiscFactory.getClass(n).then(function(item) {
+					return item.name;
+				});*/
+				/*MiscFactory.getClass(id).then(function(item) {
+					return item.name;
+				});*/
+			}
+		});
+
+	</script>
+
+</body>
+</html>
